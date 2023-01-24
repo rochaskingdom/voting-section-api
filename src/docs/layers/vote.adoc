@@ -1,0 +1,37 @@
+==== Realiza voto em uma sessão
+
+Realiza a criação de uma sessão.
+
+[NOTE]
+====
+Identificador da sessão obrigatório.
+====
+
+include::{snippets}/add-vote/path-parameters.adoc[]
+
+*Requisição*
+
+include::{snippets}/add-vote/curl-request.adoc[]
+include::{snippets}/add-vote/path-parameters.adoc[]
+
+*Resposta*
+
+include::{snippets}/add-vote/http-response.adoc[]
+
+==== Realiza Contabilização dos Votos
+
+Realiza o cálculo dos votos
+[NOTE]
+
+====
+Identificador (uuid) obrigatório.
+====
+
+*Requisição*
+
+include::{snippets}/find-by-uuid-votes-section-result/curl-request.adoc[]
+include::{snippets}/find-by-uuid-votes-section-result/path-parameters.adoc[]
+
+*Resposta*
+
+include::{snippets}/find-by-uuid-votes-section-result/http-response.adoc[]

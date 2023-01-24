@@ -25,3 +25,6 @@ include::layers/agenda.adoc[opts=opcional]
 == Sessão
 include::layers/section.adoc[opts=opcional]
 
+== Voto
+include::layers/vote.adoc[opts=opcional]
+
