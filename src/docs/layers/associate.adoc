@@ -1,0 +1,35 @@
+==== Criação de Associado
+
+Realiza a criação de um associado.
+[NOTE]
+
+====
+Número de documento obrigatório.
+====
+
+*Requisição*
+
+include::{snippets}/post-associate/curl-request.adoc[]
+
+*Resposta*
+
+include::{snippets}/post-associate/http-response.adoc[]
+
+==== Busca de Associado
+
+Realiza a busca de um associado por número de documento.
+[NOTE]
+
+====
+Número de documento obrigatório.
+====
+
+*Requisição*
+
+include::{snippets}/find-by-document-number-associate/curl-request.adoc[]
+
+include::{snippets}/find-by-document-number-associate/path-parameters.adoc[]
+
+*Resposta*
+
+include::{snippets}/post-associate/http-response.adoc[]

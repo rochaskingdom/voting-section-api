@@ -1,0 +1,21 @@
+= Voting Section API
+:icons: font
+:toc: left
+:sectlinks:
+:sectnums:
+:toclevels: 3
+
+Documentação do fluxo da api de votos.
+
+== Ambiente
+
+|===
+|Ambiente |Url
+
+|local
+|http://localhost:8080/voting-section/v1
+|===
+
+== Associado
+include::layers/associate.adoc[opts=opcional]
+
