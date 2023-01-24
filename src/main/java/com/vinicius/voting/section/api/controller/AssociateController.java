@@ -3,6 +3,7 @@ package com.vinicius.voting.section.api.controller;
 import com.vinicius.voting.section.api.controller.request.AssociateRequest;
 import com.vinicius.voting.section.api.controller.response.AssociateResponse;
 import com.vinicius.voting.section.api.domain.service.AssociateService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class AssociateController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<AssociateResponse> save(@RequestBody final AssociateRequest associateRequest) {
+    public Mono<AssociateResponse> save(@RequestBody @Valid final AssociateRequest associateRequest) {
         return Mono.just(associateRequest)
                 .doOnNext(request -> log.info("Iniciando criação de associado - [{}]", request))
                 .flatMap(request -> associateService.save(associateRequest.documentNumber()))

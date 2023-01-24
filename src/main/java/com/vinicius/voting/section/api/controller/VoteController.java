@@ -4,6 +4,7 @@ import com.vinicius.voting.section.api.controller.request.VoteRequest;
 import com.vinicius.voting.section.api.controller.response.SectionResponse;
 import com.vinicius.voting.section.api.domain.service.VoteAmountService;
 import com.vinicius.voting.section.api.domain.service.VoteService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,7 @@ public class VoteController {
 
     @PostMapping("/{sectionUuid}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Mono<Void> vote(@RequestBody final VoteRequest voteRequest, @PathVariable final String sectionUuid) {
+    public Mono<Void> vote(@RequestBody @Valid final VoteRequest voteRequest, @PathVariable final String sectionUuid) {
         return Mono.just(voteRequest)
                 .doOnNext(request -> log.info("Iniciando criação de voto - [{}]", request))
                 .flatMap(request -> voteService.addVote(voteRequest, sectionUuid))

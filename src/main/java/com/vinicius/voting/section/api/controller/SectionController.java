@@ -20,7 +20,7 @@ public class SectionController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<SectionResponse> save(@RequestBody final @Valid SectionRequest sectionRequest) {
+    public Mono<SectionResponse> save(@RequestBody @Valid final SectionRequest sectionRequest) {
         return Mono.just(sectionRequest)
                 .doOnNext(request -> log.info("Iniciando criação de sessão - [{}]", request))
                 .flatMap(request -> sectionService.save(sectionRequest))

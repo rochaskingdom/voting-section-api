@@ -21,7 +21,7 @@ public class AgendaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<AgendaResponse> save(@RequestBody final @Valid AgendaRequest agendaRequest) {
+    public Mono<AgendaResponse> save(@RequestBody @Valid final AgendaRequest agendaRequest) {
         return Mono.just(agendaRequest)
                 .doOnNext(request -> log.info("Iniciando criação de pauta - [{}]", request))
                 .flatMap(request -> agendaService.save(agendaRequest))
