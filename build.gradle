@@ -1,0 +1,96 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+    id 'org.springframework.boot' version '3.0.1'
+    id 'org.asciidoctor.jvm.convert' version '3.3.2'
+    id 'org.barfuin.gradle.jacocolog' version '2.0.0'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.vinicius'
+sourceCompatibility = '17'
+
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
+configurations {
+    asciidoctorExt
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'com.google.guava:guava:31.1-jre'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation 'io.projectreactor:reactor-test'
+
+    testImplementation "org.springframework.restdocs:spring-restdocs-webtestclient"
+    asciidoctorExt "org.springframework.restdocs:spring-restdocs-asciidoctor"
+}
+
+jacoco {
+    toolVersion = "0.8.8"
+}
+
+
+test {
+    outputs.dir snippetsDir
+    useJUnitPlatform()
+    testLogging {
+        events = ["passed", "skipped", "failed"]
+    }
+
+    finalizedBy([jacocoTestReport])
+}
+
+asciidoctor {
+    dependsOn test
+    configurations 'asciidoctorExt'
+    baseDirFollowsSourceDir()
+    inputs.dir snippetsDir
+    attributes 'snippets': snippetsDir
+}
+
+asciidoctorj {
+    attributes revnumber: { project.version.toString() }
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.enabled(true)
+        html.destination file("${buildDir}/reports/jacoco")
+    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    'com/vinicius/voting/section/api/controller/handler/**',
+                    'com/vinicius/voting/section/api/controller/request/**',
+                    'com/vinicius/voting/section/api/controller/response/**',
+                    'com/vinicius/voting/section/api/config/**',
+                    'com/vinicius/voting/section/api/exception/**',
+                    'com/vinicius/voting/section/api/domain/model/**'
+            ])
+        }))
+    }
+}
+
+check.dependsOn jacocoTestReport
+
