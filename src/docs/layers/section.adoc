@@ -1,0 +1,47 @@
+==== Criação de Sessão
+
+Realiza a criação de uma sessão.
+
+[NOTE]
+====
+Descrição da sessão obrigatório.
+====
+
+[NOTE]
+====
+Identificador da agenda obrigatório.
+====
+
+[NOTE]
+====
+Data/hora de fechamento da sessão opcional.
+====
+
+include::{snippets}/post-section/request-fields.adoc[]
+
+*Requisição*
+
+include::{snippets}/post-section/curl-request.adoc[]
+
+*Resposta*
+
+include::{snippets}/post-section/http-response.adoc[]
+
+==== Busca de Sessão
+
+Realiza a busca de uma sessão por uuid.
+[NOTE]
+
+====
+Identificador (uuid) obrigatório.
+====
+
+*Requisição*
+
+include::{snippets}/find-by-uuid-section/curl-request.adoc[]
+
+include::{snippets}/find-by-uuid-section/path-parameters.adoc[]
+
+*Resposta*
+
+include::{snippets}/find-by-uuid-section/http-response.adoc[]

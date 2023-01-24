@@ -22,3 +22,6 @@ include::layers/associate.adoc[opts=opcional]
 == Pauta
 include::layers/agenda.adoc[opts=opcional]
 
+== Sessão
+include::layers/section.adoc[opts=opcional]
+
