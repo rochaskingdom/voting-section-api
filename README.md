@@ -17,6 +17,7 @@ Para fins de exercício, a segurança das interfaces pode ser abstraída e qualq
 - Spring Boot
 - Spring Reactive Web (WebFlux)
 - Spring Data Reactive MongoDB
+- Spring REST Docs (Documentação da API)
 - MongoDB
 - JUnit
 - Mockito
