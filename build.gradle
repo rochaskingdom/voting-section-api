@@ -82,11 +82,13 @@ jacocoTestReport {
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
                     'com/vinicius/voting/section/api/controller/handler/**',
+                    'com/vinicius/voting/section/api/annotation/**',
                     'com/vinicius/voting/section/api/controller/request/**',
                     'com/vinicius/voting/section/api/controller/response/**',
                     'com/vinicius/voting/section/api/config/**',
                     'com/vinicius/voting/section/api/exception/**',
-                    'com/vinicius/voting/section/api/domain/model/**'
+                    'com/vinicius/voting/section/api/domain/model/**',
+                    'com/vinicius/voting/section/api/validation/**'
             ])
         }))
     }
