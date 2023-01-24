@@ -19,3 +19,6 @@ Documentação do fluxo da api de votos.
 == Associado
 include::layers/associate.adoc[opts=opcional]
 
+== Pauta
+include::layers/agenda.adoc[opts=opcional]
+

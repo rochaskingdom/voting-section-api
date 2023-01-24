@@ -1,0 +1,48 @@
+==== Criação de Pauta
+
+Realiza a criação de uma pauta.
+[NOTE]
+
+====
+Nome da pauta obrigatório.
+====
+
+*Requisição*
+
+include::{snippets}/post-agenda/curl-request.adoc[]
+
+*Resposta*
+
+include::{snippets}/post-agenda/http-response.adoc[]
+
+
+==== Listagem de Pautas
+
+Realiza a listagem de pautas
+
+*Requisição*
+
+include::{snippets}/list-all-agendas/curl-request.adoc[]
+
+*Resposta*
+include::{snippets}/list-all-agendas/http-response.adoc[]
+
+
+==== Busca de Pauta
+
+Realiza a busca de uma pauta por uuid.
+[NOTE]
+
+====
+Identificador (uuid) obrigatório.
+====
+
+*Requisição*
+
+include::{snippets}/find-by-uuid-agenda/curl-request.adoc[]
+
+include::{snippets}/find-by-uuid-agenda/path-parameters.adoc[]
+
+*Resposta*
+
+include::{snippets}/find-by-uuid-agenda/http-response.adoc[]
