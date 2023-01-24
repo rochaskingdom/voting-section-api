@@ -1,0 +1,350 @@
+{
+	"info": {
+		"_postman_id": "bdfe1a21-9d3a-44c4-91dd-c4d2f5b41613",
+		"name": "voting-section-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15825731"
+	},
+	"item": [
+		{
+			"name": "1. Associate",
+			"item": [
+				{
+					"name": "Criar Associado",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function gera_random(n) {",
+									"\tvar ranNum = Math.round(Math.random()*n);",
+									"\treturn ranNum;",
+									"}",
+									"",
+									"function mod(dividendo,divisor) {",
+									"\treturn Math.round(dividendo - (Math.floor(dividendo/divisor)*divisor));",
+									"}",
+									"",
+									"function cpf() {",
+									"\tcomPontos = false; // TRUE para ativar e FALSE para desativar a pontuação.",
+									"  ",
+									"\tvar n = 9;",
+									"\tvar n1 = gera_random(n);",
+									"\tvar n2 = gera_random(n);",
+									"\tvar n3 = gera_random(n);",
+									"\tvar n4 = gera_random(n);",
+									"\tvar n5 = gera_random(n);",
+									"\tvar n6 = gera_random(n);",
+									"\tvar n7 = gera_random(n);",
+									"\tvar n8 = gera_random(n);",
+									"\tvar n9 = gera_random(n);",
+									"\tvar d1 = n9*2+n8*3+n7*4+n6*5+n5*6+n4*7+n3*8+n2*9+n1*10;",
+									"\td1 = 11 - ( mod(d1,11) );",
+									"\tif (d1>=10) d1 = 0;",
+									"\tvar d2 = d1*2+n9*3+n8*4+n7*5+n6*6+n5*7+n4*8+n3*9+n2*10+n1*11;",
+									"\td2 = 11 - ( mod(d2,11) );",
+									"\tif (d2>=10) d2 = 0;",
+									"\tretorno = '';",
+									"\tif (comPontos) cpf = ''+n1+n2+n3+'.'+n4+n5+n6+'.'+n7+n8+n9+'-'+d1+d2;",
+									"\telse cpf = ''+n1+n2+n3+n4+n5+n6+n7+n8+n9+d1+d2;",
+									"",
+									"\treturn cpf;",
+									"}",
+									"",
+									"pm.environment.set(\"associate.documentNumber\", cpf());"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 - Created\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"associate.documentNumber\", jsonData.documentNumber);",
+									"postman.setEnvironmentVariable(\"associate.uuid\", jsonData.uuid);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"documentNumber\": \"{{associate.documentNumber}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/voting-section/v1/associates",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"voting-section",
+								"v1",
+								"associates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar associado por número de documento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/voting-section/v1/associates/{{associate.documentNumber}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"voting-section",
+								"v1",
+								"associates",
+								"{{associate.documentNumber}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2. Agenda",
+			"item": [
+				{
+					"name": "Criar Pauta",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 - Created\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"agenda.uuid\", jsonData.uuid);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Pauta 1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/voting-section/v1/agendas",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"voting-section",
+								"v1",
+								"agendas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Pautas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/voting-section/v1/agendas",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"voting-section",
+								"v1",
+								"agendas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Pauta por Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/voting-section/v1/agendas/{{agenda.uuid}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"voting-section",
+								"v1",
+								"agendas",
+								"{{agenda.uuid}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3. Section",
+			"item": [
+				{
+					"name": "Criar Sessão",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 - Created\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"section.uuid\", jsonData.uuid);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"Sessao 1\",\n    \"closingDateTime\": \"2023-01-23 22:28:59\",\n    \"agendaUuid\": \"{{agenda.uuid}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/voting-section/v1/sections",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"voting-section",
+								"v1",
+								"sections"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Sessão por Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/voting-section/v1/sections/{{section.uuid}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"voting-section",
+								"v1",
+								"sections",
+								"{{section.uuid}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4. Vote",
+			"item": [
+				{
+					"name": "Votar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"vote\": \"NO\",\n    \"documentNumber\": \"{{associate.documentNumber}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/voting-section/v1/votes/{{section.uuid}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"voting-section",
+								"v1",
+								"votes",
+								"{{section.uuid}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "5. Section Result",
+			"item": [
+				{
+					"name": "Resultado de votos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/voting-section/v1/votes/result/{{section.uuid}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"voting-section",
+								"v1",
+								"votes",
+								"result",
+								"{{section.uuid}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
